@@ -1,0 +1,39 @@
+<content>rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Fonction pour vérifier si l'utilisateur est authentifié
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Fonction pour vérifier la taille du fichier (max 50MB)
+    function isValidSize() {
+      return request.resource.size <= 50 * 1024 * 1024;
+    }
+    
+    // Fonction pour vérifier le type de fichier
+    function isValidType() {
+      return request.resource.contentType.matches('image/.*') ||
+             request.resource.contentType.matches('video/.*');
+    }
+    
+    // Règles pour les avatars
+    match /avatars/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && 
+        request.auth.uid == userId &&
+        isValidSize() &&
+        request.resource.contentType.matches('image/.*');
+    }
+    
+    // Règles pour les médias des souvenirs
+    match /memories/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && 
+        request.auth.uid == userId &&
+        isValidSize() &&
+        isValidType();
+    }
+  }
+}</content>

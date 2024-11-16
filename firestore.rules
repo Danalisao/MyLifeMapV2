@@ -1,0 +1,60 @@
+<content>rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Fonction pour vérifier si l'utilisateur est authentifié
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Fonction pour vérifier si l'utilisateur est le propriétaire
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Fonction pour vérifier si l'utilisateur fait partie des utilisateurs partagés
+    function isSharedWith() {
+      return isAuthenticated() && 
+        request.auth.uid in resource.data.sharedWith;
+    }
+    
+    // Règles pour la collection memories
+    match /memories/{memoryId} {
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      allow read: if isOwner(resource.data.userId) || isSharedWith();
+      allow update, delete: if isOwner(resource.data.userId);
+    }
+    
+    // Règles pour la collection userSettings
+    match /userSettings/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Règles pour la collection userStats
+    match /userStats/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+    
+    // Règles pour la collection events
+    match /events/{eventId} {
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if isOwner(resource.data.userId);
+    }
+    
+    // Règles pour la collection dailyNotes
+    match /dailyNotes/{noteId} {
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if isOwner(resource.data.userId);
+    }
+    
+    // Règles pour la collection users
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+  }
+}</content>

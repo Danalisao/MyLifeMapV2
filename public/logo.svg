@@ -1,0 +1,13 @@
+<content><?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond du logo -->
+  <circle cx="256" cy="256" r="248" fill="#0284c7" stroke="white" stroke-width="16"/>
+  
+  <!-- Marqueur de carte stylisé -->
+  <path d="M256 120C203.2 120 160 163.2 160 216C160 286 256 392 256 392C256 392 352 286 352 216C352 163.2 308.8 120 256 120ZM256 252C236.8 252 220 235.2 220 216C220 196.8 236.8 180 256 180C275.2 180 292 196.8 292 216C292 235.2 275.2 252 256 252Z" fill="white"/>
+  
+  <!-- Cercles concentriques représentant les souvenirs -->
+  <circle cx="256" cy="216" r="72" stroke="white" stroke-width="8" stroke-dasharray="8 8" opacity="0.6"/>
+  <circle cx="256" cy="216" r="96" stroke="white" stroke-width="6" stroke-dasharray="6 6" opacity="0.4"/>
+  <circle cx="256" cy="216" r="120" stroke="white" stroke-width="4" stroke-dasharray="4 4" opacity="0.2"/>
+</svg></content>

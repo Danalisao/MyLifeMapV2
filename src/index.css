@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles Mapbox */
+.mapboxgl-map {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none !important;
+}
+
+.mapboxgl-canvas:focus {
+  outline: none !important;
+}
+
+.mapboxgl-ctrl-top-right {
+  top: 1rem !important;
+  right: 1rem !important;
+}
+
+.mapboxgl-ctrl-group {
+  margin-bottom: 0.5rem !important;
+  background-color: white !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+}
+
+.mapboxgl-ctrl-group button {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 6px !important;
+}
+
+.mapboxgl-ctrl-group button:focus {
+  box-shadow: none !important;
+}
+
+.mapboxgl-ctrl-group button.mapboxgl-ctrl-zoom-in,
+.mapboxgl-ctrl-group button.mapboxgl-ctrl-zoom-out,
+.mapboxgl-ctrl-group button.mapboxgl-ctrl-compass {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Mode sombre */
+.dark .mapboxgl-ctrl-group {
+  background-color: rgb(30, 41, 59) !important;
+  border: 1px solid rgb(51, 65, 85) !important;
+}
+
+.dark .mapboxgl-ctrl-group button {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Styles des marqueurs de mémoire */
+.memory-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.memory-marker:hover {
+  z-index: 2;
+}
+
+/* Optimisation des images */
+img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Styles pour l'indicateur hors ligne */
+.offline-indicator {
+  position: fixed;
+  bottom: calc(4rem + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(239, 68, 68);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+/* Styles pour la page de création/édition de souvenir */
+.memory-form-container {
+  @apply min-h-screen bg-slate-50 dark:bg-slate-900;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.memory-form-header {
+  @apply sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-4 py-3;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.memory-form-content {
+  @apply flex-1 overflow-y-auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.memory-form-footer {
+  @apply fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex justify-end gap-2;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}
